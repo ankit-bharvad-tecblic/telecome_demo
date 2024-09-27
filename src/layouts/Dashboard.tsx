@@ -217,7 +217,7 @@ const Dashboard = () => {
             placement="bottomRight"
           >
             <Avatar
-              src="/src/assets/profile_img.png"
+              src="/assets/profile_img.png"
               size={47}
               style={{
                 backgroundColor: "#fde3cf",

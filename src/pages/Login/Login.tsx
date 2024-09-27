@@ -234,7 +234,8 @@ const Login = () => {
           }}
         >
           <img
-            src="/src/assets/login_img.svg"
+            src="/assets/login_img.svg"
+            // src="/assets/login_img.svg"
             alt="Illustration"
             style={{ maxWidth: "70%" }}
           />

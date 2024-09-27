@@ -380,7 +380,7 @@ const MyModal = (props: any) => {
       >
         <Flex justify="center" align="center">
           <div>
-            <img src="/src/assets/thanks.svg" width={300} height={300} />
+            <img src="/assets/thanks.svg" width={300} height={300} />
 
             <Title
               style={{
