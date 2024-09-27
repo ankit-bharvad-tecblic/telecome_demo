@@ -122,7 +122,6 @@ const Login = () => {
 
   return (
     <>
-      {getSpaceSize()}
       <Row
         justify="center"
         align="middle"
