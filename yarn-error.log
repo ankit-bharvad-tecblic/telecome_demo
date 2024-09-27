@@ -1,0 +1,73 @@
+Arguments: 
+  /Users/apple/.nvm/versions/node/v20.10.0/bin/node /Users/apple/.nvm/versions/node/v16.14.0/bin/yarn
+
+PATH: 
+  /Users/apple/.nvm/versions/node/v20.10.0/bin:/Users/apple/.console-ninja/.bin:/Users/apple/.nvm/versions/node/v16.14.0/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/apple/.console-ninja/.bin:/Users/apple/.nvm/versions/node/v16.14.0/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  20.10.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/typescript: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/Users/apple/.nvm/versions/node/v16.14.0/lib/node_modules/yarn/lib/cli.js:141517:19)
+      at Object.onceWrapper (node:events:628:28)
+      at ClientRequest.emit (node:events:514:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:840:9)
+      at Object.onceWrapper (node:events:628:28)
+      at TLSSocket.emit (node:events:526:35)
+      at Socket._onTimeout (node:net:589:8)
+      at listOnTimeout (node:internal/timers:573:17)
+      at process.processTimers (node:internal/timers:514:7)
+
+npm manifest: 
+  {
+    "name": "admin-dashboard",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc && vite build",
+      "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+      "preview": "vite preview",
+      "test": "vitest --watch"
+    },
+    "dependencies": {
+      "@tanstack/react-query": "^5.34.1",
+      "antd": "^5.17.0",
+      "axios": "^1.7.2",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-router-dom": "^6.23.0",
+      "zustand": "^4.5.2"
+    },
+    "devDependencies": {
+      "@testing-library/jest-dom": "^6.4.5",
+      "@testing-library/react": "^15.0.6",
+      "@types/axios": "^0.14.0",
+      "@types/react": "^18.2.66",
+      "@types/react-dom": "^18.2.22",
+      "@typescript-eslint/eslint-plugin": "^7.2.0",
+      "@typescript-eslint/parser": "^7.2.0",
+      "@vitejs/plugin-react": "^4.2.1",
+      "eslint": "^8.57.0",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "eslint-plugin-react-refresh": "^0.4.6",
+      "jsdom": "^24.0.0",
+      "typescript": "^5.4.5",
+      "vite": "^5.2.0",
+      "vitest": "^1.6.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
