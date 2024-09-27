@@ -20,20 +20,9 @@ import { Credentials } from "../../types";
 
 // import { login, self, logout } from "../../http/api";
 import { useAuthStore } from "../../store";
-import { usePermission } from "../../hooks/usePermission";
+// import { usePermission } from "../../hooks/usePermission";
 
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Row,
-  Col,
-  Typography,
-  Space,
-  Grid,
-  Card,
-} from "antd";
+import { Form, Input, Button, Row, Col, Typography, Space, Grid } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Navigate } from "react-router-dom";
 // import { useMutation, useQuery } from "@tanstack/react-query";
@@ -47,7 +36,7 @@ const DUMY_USER_CREDENTIALS = {
 };
 
 const Login = () => {
-  const { isAllowed } = usePermission();
+  // const { isAllowed } = usePermission();
   const { setUser } = useAuthStore();
   // const { setUser, logout: logoutFromStore } = useAuthStore();
 
@@ -59,13 +48,14 @@ const Login = () => {
       const selfDataPromise = {
         data: {
           id: 1,
+          name: "ankit",
           firstName: "ankit",
           lastName: "bharvad",
           email: "ankit@gmail.com",
           role: "manager",
         },
       };
-      setUser(selfDataPromise.data);
+      setUser(selfDataPromise?.data);
       <Navigate to="/" />;
     } else {
       alert("Username and Password do not match");
@@ -195,7 +185,7 @@ const Login = () => {
               >
                 <Input.Password
                   size="large"
-                  prefix={<LockOutlined color={colorPri} />}
+                  prefix={<LockOutlined />}
                   placeholder="Password"
                 />
               </Form.Item>

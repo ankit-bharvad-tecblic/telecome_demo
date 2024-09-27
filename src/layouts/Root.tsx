@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { Outlet } from "react-router-dom";
-import { self } from "../http/api";
+// import { self } from "../http/api";
 import { useAuthStore } from "../store";
-import { AxiosError } from "axios";
+// import { AxiosError } from "axios";
 
 // const getSelf = async () => {
 //   const { data } = await self();
@@ -14,6 +14,7 @@ const Root = () => {
   const { setUser } = useAuthStore();
   const data = {
     id: 1,
+    name: "ankit",
     firstName: "ankit",
     lastName: "bharvad",
     email: "ankit@gmail.com",

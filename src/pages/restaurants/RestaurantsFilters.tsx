@@ -1,4 +1,4 @@
-import { Card, Col, Form, Input, Row, Select } from "antd";
+import { Card, Col, Form, Input, Row } from "antd";
 
 type UsersFilterProps = {
   children?: React.ReactNode;

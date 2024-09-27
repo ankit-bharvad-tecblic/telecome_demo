@@ -6,23 +6,16 @@ import {
   Form,
   Grid,
   Input,
-  InputNumber,
-  List,
   Modal,
   Row,
-  Skeleton,
   Space,
-  Statistic,
-  Tag,
   Typography,
 } from "antd";
-import Icon from "@ant-design/icons";
-import { useAuthStore } from "../store";
-import { BarChartIcon } from "../components/icons/BarChart";
-import BasketIcon from "../components/icons/BasketIcon";
-import { Link } from "react-router-dom";
-import { ComponentType, useState } from "react";
-const { Title, Text } = Typography;
+import { useState } from "react";
+// import Icon from "@ant-design/icons";
+// import { useAuthStore } from "../store";
+// import { ComponentType, useState } from "react";
+const { Title } = Typography;
 
 // xs: <576px (extra small, mobile)
 // sm: ≥576px (small, tablet)
@@ -30,52 +23,52 @@ const { Title, Text } = Typography;
 // lg: ≥992px (large desktop)
 // xl: ≥1200px (extra-large desktop)
 
-const list = [
-  {
-    OrderSummary: "Peperoni, Margarita ...",
-    address: "Bandra, Mumbai",
-    amount: 1200,
-    status: "preparing",
-    loading: false,
-  },
-  {
-    OrderSummary: "Paneer, Chicken BBQ ...",
-    address: "Balurghat, West bengal",
-    amount: 2000,
-    status: "on the way",
-    loading: false,
-  },
-  {
-    OrderSummary: "Paneer, Chicken BBQ ...",
-    address: "Balurghat, West bengal",
-    amount: 2000,
-    status: "on the way",
-    loading: false,
-  },
-  {
-    OrderSummary: "Paneer, Chicken BBQ ...",
-    address: "Balurghat, West bengal",
-    amount: 2000,
-    status: "on the way",
-    loading: false,
-  },
-  {
-    OrderSummary: "Paneer, Chicken BBQ ...",
-    address: "Balurghat, West bengal",
-    amount: 2000,
-    status: "on the way",
-    loading: false,
-  },
-  {
-    OrderSummary: "Paneer, Chicken BBQ ...",
-    address: "Balurghat, West bengal",
-    amount: 2000,
-    status: "on the way",
-    loading: false,
-  },
-];
+// const list = [
+//   {
+//     OrderSummary: "Peperoni, Margarita ...",
+//     address: "Bandra, Mumbai",
+//     amount: 1200,
+//     status: "preparing",
+//     loading: false,
+//   },
+//   {
+//     OrderSummary: "Paneer, Chicken BBQ ...",
+//     address: "Balurghat, West bengal",
+//     amount: 2000,
+//     status: "on the way",
+//     loading: false,
+//   },
+//   {
+//     OrderSummary: "Paneer, Chicken BBQ ...",
+//     address: "Balurghat, West bengal",
+//     amount: 2000,
+//     status: "on the way",
+//     loading: false,
+//   },
+//   {
+//     OrderSummary: "Paneer, Chicken BBQ ...",
+//     address: "Balurghat, West bengal",
+//     amount: 2000,
+//     status: "on the way",
+//     loading: false,
+//   },
+//   {
+//     OrderSummary: "Paneer, Chicken BBQ ...",
+//     address: "Balurghat, West bengal",
+//     amount: 2000,
+//     status: "on the way",
+//     loading: false,
+//   },
+//   {
+//     OrderSummary: "Paneer, Chicken BBQ ...",
+//     address: "Balurghat, West bengal",
+//     amount: 2000,
+//     status: "on the way",
+//     loading: false,
+//   },
+// ];
 
-const dumyDetails = {
+const dumyDetails: unknown = {
   partnerName: "Esther Howard",
   contactNumber: "(406) 555-0120",
   email: "esther.howard@example.com",
@@ -85,28 +78,28 @@ const dumyDetails = {
   lastLogin: "August 15, 2024, 01:00 pm",
 };
 
-interface CardTitleProps {
-  title: string;
-  PrefixIcon: ComponentType<unknown>;
-}
+// interface CardTitleProps {
+//   title: string;
+//   PrefixIcon: ComponentType<unknown>;
+// }
 
-const CardTitle = ({ title, PrefixIcon }: CardTitleProps) => {
-  return (
-    <Space>
-      <Icon component={PrefixIcon} />
-      {title}
-    </Space>
-  );
-};
+// const CardTitle = ({ title, PrefixIcon }: CardTitleProps) => {
+//   return (
+//     <Space>
+//       <Icon component={PrefixIcon} />
+//       {title}
+//     </Space>
+//   );
+// };
 
 function Home() {
-  const { user } = useAuthStore();
+  // const { user } = useAuthStore();
   const [form] = Form.useForm();
   const [addToWalletform] = Form.useForm();
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   const [modal1Open, setModal1Open] = useState(false);
-  const [details, setDetails] = useState({
+  const [details, setDetails]: any = useState({
     partnerName: "",
     contactNumber: "",
     email: "",
@@ -116,16 +109,17 @@ function Home() {
     lastLogin: "",
   });
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: unknown) => {
+    console.log(values);
     setDetails(dumyDetails);
     form.resetFields();
   };
 
   const addToWallet = ({ amount }: { amount: number }) => {
     setModal1Open(true);
-    setDetails((prev: any) => ({
+    setDetails((prev: { walletBalance: number }) => ({
       ...prev,
-      walletBalance: Number(prev.walletBalance) + Number(amount),
+      walletBalance: Number(prev?.walletBalance) + Number(amount),
     }));
     addToWalletform.resetFields();
   };
@@ -170,7 +164,7 @@ function Home() {
                 rules={[
                   {
                     required: false,
-                    validator: (rule, value, callback) => {
+                    validator: (_, value, callback) => {
                       if (!value && !form.getFieldValue("Partner ID")) {
                         callback("Please fill in at least one field.");
                       } else {
@@ -193,7 +187,7 @@ function Home() {
                 rules={[
                   {
                     required: false,
-                    validator: (rule, value, callback) => {
+                    validator: (_, value, callback) => {
                       if (!value && !form.getFieldValue("partner_name")) {
                         callback("Please fill in at least one field.");
                       } else {
@@ -371,30 +365,8 @@ function Home() {
 
 export default Home;
 
-const styles = {
-  container: {
-    display: "flex",
-    // flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    // flexWrap: "wrap", // Wrap items on smaller screens
-    gap: "24px", // Spacing between items
-    padding: "16px", // Optional padding for better aesthetics
-  },
-  inputContainer: {
-    flex: "1 1 30%", // Grow and shrink with a base width of 30%
-    minWidth: "250px", // Minimum width to ensure usability on small screens
-  },
-  buttonContainer: {
-    flex: "1 1 20%", // Similar to input container
-    display: "flex",
-    alignItems: "center",
-
-    justifyContent: "flex-end", // Align button to the right
-  },
-};
-
-const MyModal = ({ modal1Open, setModal1Open }) => {
+const MyModal = (props: any) => {
+  const { modal1Open, setModal1Open } = props;
   return (
     <>
       <Modal
