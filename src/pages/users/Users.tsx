@@ -38,7 +38,6 @@ const Users = () => {
   const [filterForm] = Form.useForm();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-
   const {
     token: { colorBgLayout },
   } = theme.useToken();
@@ -66,43 +65,49 @@ const Users = () => {
 
       return getUsers(queryString).then((res) => res.data);
     },
-    placeholderData : keepPreviousData
+    placeholderData: keepPreviousData,
   });
 
-  const {mutate: createUserMutation, isPending : isUserCreating} = useMutation({
-    mutationKey : ['user'],
-    mutationFn : async (data : CreateUserData) => createUser(data).then(res => res.data),
-    onSuccess : async () => {
-      form.resetFields();
-      queryClient.invalidateQueries({ queryKey : ['users'] })
-      setDrawerOpen(false);
+  const { mutate: createUserMutation, isPending: isUserCreating } = useMutation(
+    {
+      mutationKey: ["user"],
+      mutationFn: async (data: CreateUserData) =>
+        createUser(data).then((res) => res.data),
+      onSuccess: async () => {
+        form.resetFields();
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+        setDrawerOpen(false);
+      },
     }
-  })
+  );
 
-  const {mutate: updateUserMutation, isPending : isUserUpdating} = useMutation({
-    mutationKey : ['user'],
-    mutationFn : async (data : CreateUserData) => updateUser(data).then(res => res.data),
-    onSuccess : async () => {
-      form.resetFields();
-      setCurrentEditingUser(null);
-      setDrawerOpen(false);
-      queryClient.invalidateQueries({ queryKey : ['users'] })
-
+  const { mutate: updateUserMutation, isPending: isUserUpdating } = useMutation(
+    {
+      mutationKey: ["user"],
+      mutationFn: async (data: CreateUserData) =>
+        updateUser(data).then((res) => res.data),
+      onSuccess: async () => {
+        form.resetFields();
+        setCurrentEditingUser(null);
+        setDrawerOpen(false);
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+      },
     }
-  })
-
-  
+  );
 
   const [currentEditingUser, setCurrentEditingUser] =
     React.useState<User | null>(null);
 
-  const onHandleSubmit = async () => { 
+  const onHandleSubmit = async () => {
     await form.validateFields();
     const isEditMode = !!currentEditingUser;
-    console.log(currentEditingUser)
-    console.log(form?.getFieldsValue())
+    console.log(currentEditingUser);
+    console.log(form?.getFieldsValue());
     if (isEditMode) {
-      await updateUserMutation({...form.getFieldsValue(), id : currentEditingUser.id });
+      await updateUserMutation({
+        ...form.getFieldsValue(),
+        id: currentEditingUser.id,
+      });
     } else {
       await createUserMutation(form.getFieldsValue());
     }
@@ -113,7 +118,7 @@ const Users = () => {
       setDrawerOpen(true);
       form.setFieldsValue({
         ...currentEditingUser,
-        tenantId: currentEditingUser.tenant?.id,
+        tenantId: "3434",
       });
     }
   }, [currentEditingUser, form]);
@@ -150,8 +155,9 @@ const Users = () => {
       title: "Restaurant",
       dataIndex: "tenant",
       key: "tenant",
-      render: (_text: string, record: User) => {
-        return <div>{record.tenant?.name}</div>;
+      // _text: string, record: User
+      render: () => {
+        return <div>{"record.tenant?.name"}</div>;
       },
     },
   ];
@@ -163,7 +169,6 @@ const Users = () => {
   }, []);
 
   const onFilterChange = (changedFields: FieldData[]) => {
-
     const changedFilterFields = changedFields
       .map((item) => ({
         [item.name[0]]: item.value,
@@ -280,7 +285,11 @@ const Users = () => {
               >
                 Cancel
               </Button>
-              <Button loading={isUserCreating || isUserUpdating} type="primary" onClick={onHandleSubmit}>
+              <Button
+                loading={isUserCreating || isUserUpdating}
+                type="primary"
+                onClick={onHandleSubmit}
+              >
                 Submit
               </Button>
             </Space>
