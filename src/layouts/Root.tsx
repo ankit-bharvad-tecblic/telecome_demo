@@ -18,6 +18,8 @@ const Root = () => {
     firstName: "ankit",
     lastName: "bharvad",
     email: "ankit@gmail.com",
+    balance: 5000,
+    currencyCode: "EUR",
     role: "manager",
   };
 

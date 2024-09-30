@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   Card,
   Col,
@@ -12,6 +13,8 @@ import {
   Typography,
 } from "antd";
 import { useState } from "react";
+import LocalStorageService from "../services/localStorageService";
+import { useAuthStore, User } from "../store";
 // import Icon from "@ant-design/icons";
 // import { useAuthStore } from "../store";
 // import { ComponentType, useState } from "react";
@@ -68,14 +71,33 @@ const { Title } = Typography;
 //   },
 // ];
 
+// const dumyDetails: unknown = {
+//   partnerName: "Esther Howard",
+//   contactNumber: "(406) 555-0120",
+//   email: "esther.howard@example.com",
+//   address: "4517 Washington Ave. Manchester, 39495",
+//   walletBalance: 15.0,
+//   currentStatus: "Active",
+//   lastLogin: "August 15, 2024, 01:00 pm",
+// };
+
+//
 const dumyDetails: unknown = {
-  partnerName: "Esther Howard",
-  contactNumber: "(406) 555-0120",
-  email: "esther.howard@example.com",
-  address: "4517 Washington Ave. Manchester, 39495",
+  accountNumber: "DEF2305000004",
+  accountName: "Besmira Kuqi", //Partner Name done
+  phoneNumber: "355222255555", //Contact Number // done
+  email: "mailto:besmira.kuqi@one.al", //Email done
+  accountType: "RESELLER", //Account Type // done
+  partnerType: "L4 EXCLUSIVE", //Partner Type
+  accountStatusId: "ACS01", //Status    ACS01-- ActiveXObject, Deactivate
   walletBalance: 15.0,
-  currentStatus: "Active",
-  lastLogin: "August 15, 2024, 01:00 pm",
+
+  accountId: "ACC000009692", //Account Id
+
+  userName: "def2305000004",
+  systemGenrated: "N",
+  tenantArea: "Default", // x
+  parentAccountNumber: "1-WYHVOB0",
 };
 
 // interface CardTitleProps {
@@ -93,7 +115,7 @@ const dumyDetails: unknown = {
 // };
 
 function Home() {
-  // const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const [form] = Form.useForm();
   const [addToWalletform] = Form.useForm();
   const { useBreakpoint } = Grid;
@@ -115,12 +137,40 @@ function Home() {
     form.resetFields();
   };
 
+  interface WalletDetails {
+    walletBalance: number;
+  }
+
   const addToWallet = ({ amount }: { amount: number }) => {
+    if (!user) {
+      alert("User not found");
+      return;
+    }
+
+    const { balance } = user;
+
+    if (amount > balance) {
+      alert("Insufficient balance");
+      return;
+    }
+
+    // Update user's balance
+    const updatedUser: User = {
+      ...user,
+      balance: balance - amount,
+    };
+
+    // Update state and modal
+    setUser(updatedUser);
     setModal1Open(true);
-    setDetails((prev: { walletBalance: number }) => ({
+
+    // Update wallet details
+    setDetails((prev: WalletDetails) => ({
       ...prev,
-      walletBalance: Number(prev?.walletBalance) + Number(amount),
+      walletBalance: Number(prev.walletBalance) + amount,
     }));
+
+    // Reset the form
     addToWalletform.resetFields();
   };
 
@@ -235,32 +285,37 @@ function Home() {
             >
               Partner Name:{"  "}
               <div style={{ fontWeight: "lighter" }}>
-                {" "}
-                {details.partnerName}
+                {"  "}
+                {details.accountName}
               </div>
             </Title>
             <Title
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Contact Number:{" "}
-              <div style={{ fontWeight: "lighter" }}>
-                {details.contactNumber}
-              </div>
+              Contact Number:{"  "}
+              <div style={{ fontWeight: "lighter" }}>{details.phoneNumber}</div>
             </Title>
             <Title
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Email:{" "}
+              Email:{"  "}
               <div style={{ fontWeight: "lighter" }}>{details.email}</div>
             </Title>
-            <Title
+            {/* <Title
               level={4}
               style={{ display: "flex", gap: "3px", fontSize: getFontSize() }}
             >
               Address:{" "}
               <div style={{ fontWeight: "lighter" }}>{details.address}</div>
+            </Title> */}
+            <Title
+              level={4}
+              style={{ display: "flex", gap: "3px", fontSize: getFontSize() }}
+            >
+              Account Type:{"  "}
+              <div style={{ fontWeight: "lighter" }}>{details.accountType}</div>
             </Title>
           </Col>
 
@@ -269,7 +324,7 @@ function Home() {
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Wallet Balance:{" "}
+              Wallet Balance:{"  "}
               <div style={{ fontWeight: "lighter" }}>
                 {`${details.walletBalance ? "€" : ""}
                 ${
@@ -283,17 +338,31 @@ function Home() {
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Current status:{" "}
-              <div style={{ fontWeight: "lighter" }}>
-                {details.currentStatus}
-              </div>
+              Partner Type:{"  "}
+              <div style={{ fontWeight: "lighter" }}>{details.partnerType}</div>
+            </Title>
+
+            <Title
+              level={4}
+              style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
+            >
+              Account Id:{"  "}
+              <div style={{ fontWeight: "lighter" }}>{details.accountId}</div>
             </Title>
             <Title
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Last Login:{" "}
-              <div style={{ fontWeight: "lighter" }}>{details.lastLogin}</div>
+              Status :{"  "}
+              <div style={{ fontWeight: "lighter" }}>
+                {details.accountStatusId === "ACS01" ? (
+                  <Badge status="success" text="Active" />
+                ) : details.accountStatusId === "" ? (
+                  <Badge status="error" text="Deactivate" />
+                ) : (
+                  ""
+                )}
+              </div>
             </Title>
 
             <Row justify="end">
@@ -428,3 +497,18 @@ const MyModal = (props: any) => {
     </>
   );
 };
+
+// {
+//   "accountNumber": "DEF2305000004",
+//   "accountName": "Besmira Kuqi", Partner Name
+//   "accountType": "RESELLER", Account Type
+//   "tenantArea": "Default", // x
+//   "partnerType": "L4 EXCLUSIVE", Partner Type
+//   "accountStatusId": "ACS01", Status    ACS01-- ActiveXObject, Deactivate
+//   "accountId": "ACC000009692", Account Id
+//   "userName": "def2305000004",
+//   "systemGenrated": "N",
+//   "phoneNumber": "355222255555", Contact Number
+//   "email": "mailto:besmira.kuqi@one.al", Email
+//   "parentAccountNumber": "1-WYHVOB0"
+// }

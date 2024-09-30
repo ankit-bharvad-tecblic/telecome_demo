@@ -25,6 +25,7 @@ import { useAuthStore } from "../../store";
 import { Form, Input, Button, Row, Col, Typography, Space, Grid } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Navigate } from "react-router-dom";
+import LocalStorageService from "../../services/localStorageService";
 // import { useMutation, useQuery } from "@tanstack/react-query";
 
 const { Title, Link } = Typography;
@@ -52,9 +53,13 @@ const Login = () => {
           firstName: "ankit",
           lastName: "bharvad",
           email: "ankit@gmail.com",
+          balance: 5000,
+          currencyCode: "EUR",
           role: "manager",
         },
       };
+      const obj = selfDataPromise.data;
+      LocalStorageService.setItem("userDetails", obj);
       setUser(selfDataPromise?.data);
       <Navigate to="/" />;
     } else {

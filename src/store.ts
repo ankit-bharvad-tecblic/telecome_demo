@@ -20,8 +20,9 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  balance: number;
   role: string;
-  // tenant?: Tenant;
+  currencyCode: string;
 }
 
 // interface AuthState {

@@ -15,7 +15,10 @@ import {
 // import { useState } from "react";
 import Logo from "../components/icons/Logo";
 import { useState } from "react";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, WalletOutlined } from "@ant-design/icons";
+import Title from "antd/es/typography/Title";
+import getCurrencySymbol from "../services/currencies";
+
 // import "./dashboard.css";
 // import Home from "../components/icons/Home";
 // import UserIcon from "../components/icons/UserIcon";
@@ -103,6 +106,7 @@ const Dashboard = () => {
 
   // call getself
   const { user } = useAuthStore();
+  console.log(user);
 
   if (user === null) {
     return (
@@ -161,6 +165,31 @@ const Dashboard = () => {
               background: colorPrimary,
             }}
           />
+        </div>
+        <div
+          style={{
+            width: "17%",
+            // border: "1px solid red",
+            display: "flex",
+            alignItems: "center",
+            textAlign: "right",
+            gap: 15,
+          }}
+        >
+          <WalletOutlined
+            style={{
+              fontSize: 28,
+            }}
+          />
+          <Title level={3} style={{ margin: 0 }}>
+            {typeof user?.balance === "number"
+              ? `${getCurrencySymbol(user.currencyCode)} ${user.balance.toFixed(
+                  2
+                )}`
+              : `${getCurrencySymbol(user.currencyCode)} 0.00`}
+
+            {/* User Balance: {getCurrencySymbol(user.currencyCode)}{user.balance.toFixed(2)} */}
+          </Title>
         </div>
         {/* Mobile Menu Button */}
         <div className="mobile-menu-button">
