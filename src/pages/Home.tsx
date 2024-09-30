@@ -353,7 +353,7 @@ function Home() {
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
             >
-              Status :{"  "}
+              Status : {"  "}
               <div style={{ fontWeight: "lighter" }}>
                 {details.accountStatusId === "ACS01" ? (
                   <Badge status="success" text="Active" />

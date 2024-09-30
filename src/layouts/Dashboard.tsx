@@ -6,6 +6,7 @@ import {
   Avatar,
   Button,
   Drawer,
+  Typography,
   Dropdown,
   Layout,
   Menu,
@@ -16,7 +17,6 @@ import {
 import Logo from "../components/icons/Logo";
 import { useState } from "react";
 import { MenuOutlined, WalletOutlined } from "@ant-design/icons";
-import Title from "antd/es/typography/Title";
 import getCurrencySymbol from "../services/currencies";
 
 // import "./dashboard.css";
@@ -29,6 +29,7 @@ import getCurrencySymbol from "../services/currencies";
 // import { logout } from "../http/api";
 
 const { Header, Content } = Layout;
+const { Text } = Typography;
 
 const getMenuItems = (role: string) => {
   const baseItems = [
@@ -168,20 +169,25 @@ const Dashboard = () => {
         </div>
         <div
           style={{
-            width: "17%",
+            width: "100%",
             // border: "1px solid red",
             display: "flex",
             alignItems: "center",
-            textAlign: "right",
+            justifyContent: "end",
+            color: "fff",
+
+            // textAlign: "right",
             gap: 15,
           }}
         >
           <WalletOutlined
             style={{
               fontSize: 28,
+              color: "#fff",
             }}
           />
-          <Title level={3} style={{ margin: 0 }}>
+
+          <Text style={{ margin: 0, fontSize: 22, color: "#fff" }}>
             {typeof user?.balance === "number"
               ? `${getCurrencySymbol(user.currencyCode)} ${user.balance.toFixed(
                   2
@@ -189,7 +195,7 @@ const Dashboard = () => {
               : `${getCurrencySymbol(user.currencyCode)} 0.00`}
 
             {/* User Balance: {getCurrencySymbol(user.currencyCode)}{user.balance.toFixed(2)} */}
-          </Title>
+          </Text>
         </div>
         {/* Mobile Menu Button */}
         <div className="mobile-menu-button">

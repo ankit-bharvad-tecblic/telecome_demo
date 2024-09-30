@@ -18,8 +18,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             colorPrimary: "#6337E6",
             colorLink: "#6337E6",
             borderRadius: 0,
+            motionDurationSlow: "0.5",
+            // fontFamily : ""  // The font family of Ant Design prioritizes the default interface font of the system,
           },
           components: {
+            Badge: {
+              dotSize: 2,
+              indicatorHeight: 20,
+              statusSize: 5,
+              textFontSize: 20,
+            },
             Menu: {
               itemColor: "#fff",
               itemHoverColor: "#fff",
