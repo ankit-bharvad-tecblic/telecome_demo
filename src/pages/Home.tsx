@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Card,
   Col,
@@ -18,7 +17,7 @@ import { useAuthStore, User } from "../store";
 // import Icon from "@ant-design/icons";
 // import { useAuthStore } from "../store";
 // import { ComponentType, useState } from "react";
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 // xs: <576px (extra small, mobile)
 // sm: ≥576px (small, tablet)
@@ -86,7 +85,7 @@ const dumyDetails: unknown = {
   accountNumber: "DEF2305000004",
   accountName: "Besmira Kuqi", //Partner Name done
   phoneNumber: "355222255555", //Contact Number // done
-  email: "mailto:besmira.kuqi@one.al", //Email done
+  email: "besmira.kuqi@one.al", //Email done
   accountType: "RESELLER", //Account Type // done
   partnerType: "L4 EXCLUSIVE", //Partner Type
   accountStatusId: "ACS01", //Status    ACS01-- ActiveXObject, Deactivate
@@ -276,9 +275,11 @@ function Home() {
 
       {/* details */}
       <Card style={{ margin: "20px 0px" }} bordered={true}>
+        <Title level={2} style={{ marginTop: 10, marginBottom: 25 }}>
+          Details
+        </Title>
         <Row gutter={[16, 16]} align="middle" justify="space-between">
           <Col xs={24} sm={24} md={24} lg={12}>
-            <Title level={2}>Details</Title>
             <Title
               level={4}
               style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
@@ -303,13 +304,7 @@ function Home() {
               Email:{"  "}
               <div style={{ fontWeight: "lighter" }}>{details.email}</div>
             </Title>
-            {/* <Title
-              level={4}
-              style={{ display: "flex", gap: "3px", fontSize: getFontSize() }}
-            >
-              Address:{" "}
-              <div style={{ fontWeight: "lighter" }}>{details.address}</div>
-            </Title> */}
+
             <Title
               level={4}
               style={{ display: "flex", gap: "3px", fontSize: getFontSize() }}
@@ -322,7 +317,11 @@ function Home() {
           <Col xs={24} sm={24} md={24} lg={12}>
             <Title
               level={4}
-              style={{ display: "flex", gap: "4px", fontSize: getFontSize() }}
+              style={{
+                display: "flex",
+                gap: "4px",
+                fontSize: getFontSize(),
+              }}
             >
               Wallet Balance:{"  "}
               <div style={{ fontWeight: "lighter" }}>
@@ -356,9 +355,9 @@ function Home() {
               Status : {"  "}
               <div style={{ fontWeight: "lighter" }}>
                 {details.accountStatusId === "ACS01" ? (
-                  <Badge status="success" text="Active" />
+                  <Text style={{ fontSize: 22 }}>Active</Text>
                 ) : details.accountStatusId === "" ? (
-                  <Badge status="error" text="Deactivate" />
+                  <Text style={{ fontSize: 22 }}>Deactivate</Text>
                 ) : (
                   ""
                 )}
